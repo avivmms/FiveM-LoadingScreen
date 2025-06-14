@@ -8,8 +8,8 @@ Open the `index.html` file in your browser to see it in action.
 
 ## 🛠️ Technologies Used
 - HTML5  
-- CSS3 (with animations)  
-- JavaScript *(optional, if included)*
+- CSS3
+- JavaScript
 
 ## 📂 How to Use
 1. Clone or download the repository.  
@@ -32,8 +32,8 @@ Made with ❤️ by [Arad Ashkan]
 
 ## 🛠️ تکنولوژی‌های استفاده‌شده
 - HTML5  
-- CSS3 (با انیمیشن)  
-- JavaScript *(در صورت نیاز)*
+- CSS3
+- JavaScript 
 
 ## 📂 نحوه استفاده
 1. ریپازیتوری را کلون یا دانلود کنید.  
