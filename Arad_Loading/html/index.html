@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arad Loading Screen</title>
+    <link rel="preload" href="https://cdn.aradashkan.ir/sounds/loading.mp3" as="audio">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #001f27 0%, #003d4d 100%);
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-container {
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+            animation: pulse 2s infinite alternate;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .subtitle {
+            font-weight: 300;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00b4d8 0%, #00ffff 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .loading-text {
+            font-size: 1rem;
+            margin-bottom: 40px;
+            height: 20px;
+        }
+
+        .hint-container {
+            background: rgba(0, 180, 216, 0.1);
+            border-left: 3px solid #00ffff;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: left;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .hint-title {
+            color: #00ffff;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hint-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .music-control {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 180, 216, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            background: rgba(0, 180, 216, 0.4);
+        }
+
+        .music-icon {
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+
+        /* .watermark {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        } */
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+            }
+
+            100% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.8));
+            }
+        }
+
+        .bg-bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-bubbles li {
+            position: absolute;
+            list-style: none;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 255, 0.1);
+            bottom: -160px;
+            animation: square 20s infinite;
+            transition-timing-function: linear;
+            border-radius: 2px;
+        }
+
+        @keyframes square {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="loading-container">
+        <img src="https://cdn.aradashkan.ir/img/arad.png" alt="Server Logo" class="logo">
+        <h1>Arad RolePlay</h1>
+        <p class="subtitle">Loading your gaming experience</p>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+
+        <div class="loading-text" id="loading-text">Initializing...</div>
+
+        <div class="hint-container">
+            <div class="hint-title">Did you know?</div>
+            <div class="hint-text" id="hint-text">Loading hints dynamically...</div>
+        </div>
+
+        <!-- <div class="watermark">v1.0.0 | Arad Ashkan</div> -->
+
+        <div class="music-control" id="music-control" title="Click anywhere to enable music">
+            <span class="music-icon">🔇</span>
+        </div>
+    </div>
+
+    <audio loop id="bg-music">
+        <source src="https://cdn.aradashkan.ir/sounds/loading.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const hints = [
+            "You can open the map with P key.",
+            "Our server features custom vehicles and weapons!",
+            "Join our Discord for updates and community events.",
+            "Press [I] to open the Interaction Menu.",
+            "We have regular RP events - check the calendar!",
+            "Premium members get access to exclusive content."
+        ];
+
+        const messages = [
+            "Initializing resources...",
+            "Loading world data...",
+            "Preparing character models...",
+            "Setting up environment...",
+            "Almost there...",
+            "Finalizing your experience..."
+        ];
+
+        const progressBar = document.getElementById('progress');
+        const loadingText = document.getElementById('loading-text');
+        const hintText = document.getElementById('hint-text');
+        const musicControl = document.getElementById('music-control');
+        const bgMusic = document.getElementById('bg-music');
+
+        // Initialize music state
+        let musicPlaying = false;
+        bgMusic.volume = 0.2;
+
+        // Music control handler
+        musicControl.addEventListener('click', () => {
+            musicPlaying = !musicPlaying;
+            if (musicPlaying) {
+                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+                musicControl.innerHTML = '<span class="music-icon">♪</span>';
+            } else {
+                bgMusic.pause();
+                musicControl.innerHTML = '<span class="music-icon">🔇</span>';
+            }
+        });
+
+        // Start music on first user interaction with the page
+        const startMusic = () => {
+            if (!musicPlaying) {
+                musicPlaying = true;
+                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+                musicControl.innerHTML = '<span class="music-icon">♪</span>';
+            }
+            document.body.removeEventListener('click', startMusic);
+            document.body.removeEventListener('keydown', startMusic);
+        };
+
+        // Listen for both click and keydown events
+        document.body.addEventListener('click', startMusic);
+        document.body.addEventListener('keydown', startMusic);
+
+        // Simulate loading progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+            }
+
+            progressBar.style.width = `${progress}%`;
+
+            if (progress < 20) {
+                loadingText.textContent = messages[0];
+            } else if (progress < 40) {
+                loadingText.textContent = messages[1];
+            } else if (progress < 60) {
+                loadingText.textContent = messages[2];
+            } else if (progress < 80) {
+                loadingText.textContent = messages[3];
+            } else if (progress < 95) {
+                loadingText.textContent = messages[4];
+            } else {
+                loadingText.textContent = messages[5];
+            }
+
+            if (Math.random() > 0.50) {
+                hintText.textContent = hints[Math.floor(Math.random() * hints.length)];
+            }
+        }, 300);
+
+        // Create background bubbles
+        const bubblesContainer = document.querySelector('.bg-bubbles');
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('li');
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.width = `${20 + Math.random() * 30}px`;
+            bubble.style.height = bubble.style.width;
+            bubble.style.animationDelay = `${Math.random() * 10}s`;
+            bubble.style.animationDuration = `${10 + Math.random() * 20}s`;
+            bubble.style.opacity = Math.random() * 0.5;
+            bubblesContainer.appendChild(bubble);
+        }
+    </script>
+</body>
+
+</html>
